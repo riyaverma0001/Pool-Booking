@@ -21,7 +21,7 @@ app.use(session({
     resave: false,            // Don't resave unchanged sessions
     saveUninitialized: false, // Don't create empty sessions
     store: MongoStore.create({ 
-        mongoUrl: 'mongodb+srv://riyaavermaa0001:pool_project@cluster0.tib7x.mongodb.net/pool',
+        mongoUrl: '<add_mongo_uri>',
         collectionName: 'sessions'
     }),
     cookie: {
