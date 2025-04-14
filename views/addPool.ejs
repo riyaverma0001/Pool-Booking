@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Function to dynamically add amenity fields
+        function addAmenity() {
+            const amenitiesContainer = document.getElementById('amenities-container');
+            const newAmenity = document.createElement('div');
+            newAmenity.classList.add('space-y-2');
+            newAmenity.innerHTML = `
+                <input type="text" name="amenities[][name]" placeholder="Amenity name (e.g., Hot Tub)" class="p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="number" name="amenities[][price]" placeholder="Price per hour" class="p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <textarea name="amenities[][description]" placeholder="Amenity description" class="p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <label for="isAvailable" class="block text-sm font-medium text-gray-700">Available</label>
+                <input type="checkbox" name="amenities[][isAvailable]" class="p-2">
+                <button type="button" class="text-red-500 hover:text-red-700" onclick="removeAmenity(this)">Remove Amenity</button>
+            `;
+            amenitiesContainer.appendChild(newAmenity);
+        }
+
+        // Function to remove an amenity field
+        function removeAmenity(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar at the top right -->
+    <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">LOGO</h1>
+        <div>
+            <a href="/home">
+                <button class="bg-green-500 text-white px-4 py-2 rounded-md mr-2">Back</button>
+            </a>
+            <form action="/userLogout" method="POST" class="inline">
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">Logout</button>
+            </form>
+        </div>
+    </header>
+
+
+    <!-- Main Content -->
+    <div class="pt-4 px-4">
+
+        <h1 class="text-3xl font-bold mb-6">Add a Pool</h1>
+
+        <!-- Pool Add Form -->
+        <form action="/add-pool" method="POST" class="bg-white p-6 rounded-lg shadow-md w-full max-w-lg mx-auto space-y-4">
+            <!-- Name Field -->
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Pool Name</label>
+                <input type="text" id="name" name="name" required class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter pool name">
+            </div>
+
+            <!-- Location Field -->
+            <div>
+                <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+                <input type="text" id="location" name="location" required class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter pool location">
+            </div>
+
+            <!-- Price Field -->
+            <div>
+                <label for="price" class="block text-sm font-medium text-gray-700">Price per Hour</label>
+                <input type="number" id="price" name="price" required class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter price per hour">
+            </div>
+
+            <!-- Guests Field -->
+            <div>
+                <label for="guests" class="block text-sm font-medium text-gray-700">Guests</label>
+                <input type="number" id="guests" name="guests" required class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter maximum number of guests">
+            </div>
+
+            <!-- About Pool Field -->
+            <div>
+                <label for="aboutPool" class="block text-sm font-medium text-gray-700">About the Pool</label>
+                <textarea id="aboutPool" name="aboutPool" required class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe the pool"></textarea>
+            </div>
+
+            <!-- Backyard Privacy Field -->
+            <div>
+                <label for="backyardPrivacy" class="block text-sm font-medium text-gray-700">Backyard Privacy</label>
+                <input type="text" id="backyardPrivacy" name="backyardPrivacy" required class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe the backyard privacy">
+            </div>
+
+            <!-- Amenities Section -->
+            <div id="amenities-container" class="space-y-4">
+                <h3 class="text-xl font-semibold">Amenities</h3>
+                <!-- Initial Amenity Field -->
+                <div class="space-y-2">
+                    <input type="text" name="amenities[][name]" placeholder="Amenity name (e.g., Hot Tub)" class="p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="number" name="amenities[][price]" placeholder="Price per hour" class="p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <textarea name="amenities[][description]" placeholder="Amenity description" class="p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    <label for="isAvailable" class="block text-sm font-medium text-gray-700">Available</label>
+                    <input type="checkbox" name="amenities[][isAvailable]" class="p-2">
+                    <button type="button" class="text-red-500 hover:text-red-700" onclick="removeAmenity(this)">Remove Amenity</button>
+                </div>
+            </div>
+            <button type="button" onclick="addAmenity()" class="w-full py-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition duration-300">
+                Add Another Amenity
+            </button>
+
+            <!-- About Host Field -->
+            <div>
+                <label for="aboutHost" class="block text-sm font-medium text-gray-700">About the Host</label>
+                <textarea id="aboutHost" name="aboutHost" required class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe the host"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="w-full py-3 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300">
+                    Add Pool
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
